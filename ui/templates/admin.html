@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Page</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Page</h1>
+    <h2>Create User</h2>
+    <form action="/create_user" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required><br>
+        <input type="submit" value="Create">
+    </form>
+    <h2>Delete User</h2>
+    <form action="/delete_user" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+        <input type="submit" value="Delete">
+    </form>
+    <h2>All Users</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Password</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
