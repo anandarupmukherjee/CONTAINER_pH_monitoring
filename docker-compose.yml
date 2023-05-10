@@ -61,7 +61,7 @@ services:
        build: ./ui
        privileged: True
        ports: 
-         - "8080:8080"
+         - "9000:9000"
        container_name: server
        restart: always
        networks:

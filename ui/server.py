@@ -3,13 +3,13 @@ import sqlite3
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
-env = Environment(loader=FileSystemLoader('templates'))
+env = Environment(loader=FileSystemLoader('./templates'))
 
 
 class WebServer:
     @cherrypy.expose
     def index(self):
-        return open('templates/index.html')
+        return open('./templates/index.html')
 
     @cherrypy.expose
     def admin(self):
@@ -27,11 +27,11 @@ class WebServer:
 
     @cherrypy.expose
     def login(self):
-        return open('templates/login.html')
+        return open('./templates/login.html')
 
     @cherrypy.expose
     def logout(self):
-        return open('templates/logout.html')
+        return open('./templates/logout.html')
 
     @cherrypy.expose
     def registration(self):
@@ -47,7 +47,7 @@ class WebServer:
         conn.close()
 
         # Return the dashboard HTML page with the retrieved data
-        return open('templates/dashboard.html').read().format(data='\n'.join(data))
+        return open('./templates/dashboard.html').read().format(data='\n'.join(data))
 
     # Add methods for handling user creation and deletion
     @cherrypy.expose
@@ -175,12 +175,15 @@ class WebServer:
         
 
 if __name__ == '__main__':
+    cherrypy.config.update({'server.socket_host': '0.0.0.0',
+                            'server.socket_port': 9000})
+                            
     cherrypy.quickstart(WebServer(), '/', {
         '/': {
             'tools.sessions.on': True
         },
         '/templates': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'templates'
+            'tools.staticdir.dir': './templates'
         }
     })
